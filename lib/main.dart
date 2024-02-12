@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbasic/ui_helper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+          primarySwatch: Colors.lightGreen,
+          useMaterial3: true,
+          textTheme: const TextTheme(
+            headline1: TextStyle(
+                color: Colors.red, fontSize: 16, fontWeight: FontWeight.w600),
+            // headline2: TextStyle(
+            //     color: Colors.purple,
+            //     fontFamily: "protestRevolution",
+            //     fontSize: 20,
+            //     fontWeight: FontWeight.w500)
+          )),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -75,9 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              child: const Text(
+              child: Text(
                 'Home',
-                style: TextStyle(color: Colors.white),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontFamily: 'protestRevolution'),
               ),
               onPressed: () => dialog("You have pressed Home button."),
             ),
@@ -90,9 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   dialog("You have pressed Video Conference button."),
             ),
             TextButton(
-              child: const Text(
+              child: Text(
                 'Questionnaier',
-                style: TextStyle(color: Colors.white),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontFamily: 'protestRevolution'),
               ),
               onPressed: () => dialog("You have pressed Questionnaier button."),
             ),
@@ -123,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     title: Text(
                       nameList[index],
-                      style: const TextStyle(fontFamily: 'protestRevolution'),
+                      style: style1(),
                     ),
                     subtitle: Text(nameList[index]),
                     trailing: InkWell(
