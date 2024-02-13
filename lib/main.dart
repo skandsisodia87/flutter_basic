@@ -14,8 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.lightGreen,
-          useMaterial3: true,
+          primarySwatch: Colors.red,
           textTheme: const TextTheme(
             headline1: TextStyle(
                 color: Colors.red, fontSize: 16, fontWeight: FontWeight.w600),
@@ -54,6 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String getCharater(String name) {
     return name[0];
   }
+
+  var username = TextEditingController();
 
   dialog(String content) {
     showDialog(
@@ -132,18 +133,33 @@ class _MyHomePageState extends State<MyHomePage> {
               margin: const EdgeInsets.only(bottom: 50),
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      child: Text(nameList[index][0]),
-                    ),
-                    title: Text(
-                      nameList[index],
-                      style: style1(),
-                    ),
-                    subtitle: Text(nameList[index]),
-                    trailing: InkWell(
-                      child: const Icon(Icons.add, color: Colors.black),
-                      onTap: () => dialog("${nameList[index]}, add icon click"),
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Card(
+                      elevation: 2,
+                      shadowColor: Colors.brown[300],
+                      color: Colors.brown[300],
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.brown[200],
+                          child: Text(
+                            nameList[index][0],
+                            style: style2(),
+                          ),
+                        ),
+                        title: Text(
+                          nameList[index],
+                          style: style1(),
+                        ),
+                        subtitle: Text(nameList[index]),
+                        trailing: IconButton(
+                          onPressed: () => dialog("Add button pressed"),
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 },
@@ -155,19 +171,48 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SingleChildScrollView(
                 child: Container(
                   margin: const EdgeInsets.only(right: 20),
-                  child: const Column(
+                  child: Column(
                     children: [
                       SizedBox(
                         height: 200,
-                        width: 200,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("assets/images/groot.jpg")),
+                        width: 300,
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: username,
+                              cursorColor: Colors.red,
+                              // enabled: false,
+                              // obscureText: true, //hide text
+                              // obscuringCharacter: '*',
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                  hintText: "Enter your name",
+                                  prefixIcon: const Icon(Icons.person),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 2)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  )),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  var name = username.text;
+                                  dialog("Hi, $name");
+                                },
+                                child: const Text("Submit"))
+                          ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 200,
                         width: 200,
                         child: Padding(
@@ -177,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   AssetImage("assets/images/asus.jpg")),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 200,
                         width: 200,
                         child: Padding(
@@ -187,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   AssetImage("assets/images/banner.jpg")),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 200,
                         width: 200,
                         child: Padding(
