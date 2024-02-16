@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbasic/ui_helper.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,24 +38,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var nameList = [
-    "Ayush",
-    "Skand",
-    "Tushar",
-    "Shubh",
-    "Pulkit",
-    "Rahul",
-    "Sachin",
-    "Rohit",
-    "Shiv",
-    "Piyush"
-  ];
+  // var nameList = [
+  //   "Ayush",
+  //   "Skand",
+  //   "Tushar",
+  //   "Shubh",
+  //   "Pulkit",
+  //   "Rahul",
+  //   "Sachin",
+  //   "Rohit",
+  //   "Shiv",
+  //   "Piyush"
+  // ];
 
-  String getCharater(String name) {
-    return name[0];
-  }
-
+  var nameList = [];
   var username = TextEditingController();
+  var selectedDate = TextEditingController();
+  var currentDateTime = DateTime.now();
+  var addedDateTime = [];
 
   dialog(String content) {
     showDialog(
@@ -151,7 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           nameList[index],
                           style: style1(),
                         ),
-                        subtitle: Text(nameList[index]),
+                        subtitle: Text(
+                            // DateFormat('yMMMMEEEEd').format(DateTime.now())),
+                            DateFormat().format(addedDateTime[index])),
                         trailing: IconButton(
                           onPressed: () => dialog("Add button pressed"),
                           icon: const Icon(
@@ -180,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             TextField(
                               controller: username,
-                              cursorColor: Colors.red,
+                              cursorColor: Colors.black,
                               // enabled: false,
                               // obscureText: true, //hide text
                               // obscuringCharacter: '*',
@@ -194,8 +197,39 @@ class _MyHomePageState extends State<MyHomePage> {
                                           color: Colors.grey, width: 1)),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(width: 2)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  )),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextField(
+                              controller: selectedDate,
+                              onTap: () async {
+                                DateTime? dateTime = await showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime(2023),
+                                    lastDate: DateTime(2025),
+                                    initialDate: DateTime.now());
+
+                                if (dateTime != null) {
+                                  selectedDate.text = dateTime.toString();
+                                }
+                              },
+                              cursorColor: Colors.black,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                  hintText: "mm/dd/yyyy",
+                                  prefixIcon: const Icon(Icons.calendar_month),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
                                       borderSide: const BorderSide(
-                                          color: Colors.red, width: 2)),
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(width: 2)),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   )),
@@ -205,8 +239,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             ElevatedButton(
                                 onPressed: () {
-                                  var name = username.text;
-                                  dialog("Hi, $name");
+                                  setState(() {
+                                    nameList.add(username.text);
+                                    addedDateTime
+                                        .add(DateTime.parse(selectedDate.text));
+                                    username.clear();
+                                  });
                                 },
                                 child: const Text("Submit"))
                           ],
