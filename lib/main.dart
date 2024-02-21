@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbasic/ui_helper.dart';
+import 'package:flutterbasic/widget/roundedbtn.dart';
 import 'package:intl/intl.dart';
 
 void main() {
@@ -38,24 +39,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // var nameList = [
-  //   "Ayush",
-  //   "Skand",
-  //   "Tushar",
-  //   "Shubh",
-  //   "Pulkit",
-  //   "Rahul",
-  //   "Sachin",
-  //   "Rohit",
-  //   "Shiv",
-  //   "Piyush"
-  // ];
-
   var nameList = [];
   var username = TextEditingController();
   var selectedDate = TextEditingController();
   var currentDateTime = DateTime.now();
   var addedDateTime = [];
+
+  handleClick() {
+    setState(() {
+      nameList.add(username.text);
+      addedDateTime.add(DateTime.parse(selectedDate.text));
+      username.clear();
+    });
+  }
 
   dialog(String content) {
     showDialog(
@@ -237,16 +233,19 @@ class _MyHomePageState extends State<MyHomePage> {
                             const SizedBox(
                               height: 10,
                             ),
-                            ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    nameList.add(username.text);
-                                    addedDateTime
-                                        .add(DateTime.parse(selectedDate.text));
-                                    username.clear();
-                                  });
-                                },
-                                child: const Text("Submit"))
+                            SizedBox(
+                              width: 180,
+                              child: Roundbutton(
+                                btnName: "Submit",
+                                callback: handleClick,
+                                bgColor: Colors.brown[200],
+                                icon: const Icon(
+                                  Icons.heart_broken_outlined,
+                                  color: Colors.brown,
+                                ),
+                                textStyle: style1(),
+                              ),
+                            )
                           ],
                         ),
                       ),
