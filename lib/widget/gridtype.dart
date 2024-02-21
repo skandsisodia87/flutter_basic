@@ -101,7 +101,20 @@ class Gridextent extends StatelessWidget {
 }
 
 class GridBuilder extends StatelessWidget {
-  const GridBuilder({super.key});
+  GridBuilder({super.key});
+
+  final colours = [
+    Colors.red,
+    Colors.yellow,
+    Colors.pink,
+    Colors.green,
+    Colors.orange,
+    Colors.blue,
+    Colors.purple,
+    Colors.grey,
+    Colors.brown,
+    Colors.indigo,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +125,7 @@ class GridBuilder extends StatelessWidget {
         return Container(
           height: 10,
           width: 10,
-          color: Colors.red,
+          color: colours[index],
         );
       },
       itemCount: 5,
