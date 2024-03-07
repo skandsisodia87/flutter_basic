@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterbasic/ui_helper.dart';
 import 'package:flutterbasic/widget/roundedbtn.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,12 +61,26 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text("Alert Dialog box"),
               content: Text(content),
               actions: [
-                TextButton(
-                  child: const Text(
-                    "Okay",
-                    style: TextStyle(color: Colors.red),
+                SizedBox(
+                  width: 80,
+                  child: TextButton(
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.ghost,
+                          size: 16,
+                          color: Colors.red,
+                          semanticLabel: AutofillHints.birthday,
+                        ),
+                        Text(
+                          " Okay",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ],
+                    ),
+                    onPressed: () => Navigator.of(ctx).pop(),
                   ),
-                  onPressed: () => Navigator.of(ctx).pop(),
                 )
               ],
             ));
