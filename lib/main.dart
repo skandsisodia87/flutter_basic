@@ -107,10 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => dialog("You have pressed Home button."),
             ),
             TextButton(
-              child: const Text(
-                'Video Conference',
-                style: TextStyle(color: Colors.white),
-              ),
+              child: RichText(
+                  text: const TextSpan(children: <TextSpan>[
+                TextSpan(text: "Video", style: TextStyle(color: Colors.blue)),
+                TextSpan(
+                    text: "Conference", style: TextStyle(color: Colors.white))
+              ])),
               onPressed: () =>
                   dialog("You have pressed Video Conference button."),
             ),
