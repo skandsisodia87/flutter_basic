@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbasic/ui_helper.dart';
+import 'package:flutterbasic/widget/listview.dart';
 import 'package:flutterbasic/widget/roundedbtn.dart';
+import 'package:flutterbasic/widget/splashscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
             //     fontSize: 20,
             //     fontWeight: FontWeight.w500)
           )),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const SplashScreen(),
     );
   }
 }
@@ -124,7 +126,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     .headline1!
                     .copyWith(fontFamily: 'protestRevolution'),
               ),
-              onPressed: () => dialog("You have pressed Questionnaier button."),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Listbuilder(),
+                    ));
+              },
             ),
             TextButton(
               child: const Text(
