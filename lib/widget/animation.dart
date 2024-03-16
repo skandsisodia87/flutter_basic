@@ -149,3 +149,71 @@ class CrossFadeAnimationState extends State<CrossFadeAnimation> {
     );
   }
 }
+
+class HeroAnimation extends StatelessWidget {
+  const HeroAnimation({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: "Image Click Event",
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ContainerView(),
+              ));
+        },
+        child: const SizedBox(
+          width: 100,
+          height: 100,
+          child: CircleAvatar(
+            backgroundImage: AssetImage("assets/images/groot.jpg"),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ContainerView extends StatefulWidget {
+  const ContainerView({super.key});
+
+  @override
+  State<ContainerView> createState() => _ContainerViewState();
+}
+
+class _ContainerViewState extends State<ContainerView> {
+  var _height = 200.0;
+  var _weight = 200.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 3), () {
+      setState(() {
+        _height = 100.0;
+        _weight = 100.0;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Hero(
+        tag: "Image Click Event",
+        child: AnimatedContainer(
+          duration: const Duration(seconds: 3),
+          curve: Curves.bounceInOut,
+          width: _weight,
+          height: _height,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: Colors.blue),
+        ),
+      ),
+    );
+  }
+}
