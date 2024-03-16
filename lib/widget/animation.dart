@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class BoxAnimation extends StatefulWidget {
@@ -92,6 +94,56 @@ class OpacityAnimationState extends State<OpacityAnimation> {
                 });
               },
               child: const Text("Animate"))
+        ],
+      ),
+    );
+  }
+}
+
+class CrossFadeAnimation extends StatefulWidget {
+  const CrossFadeAnimation({super.key});
+
+  @override
+  State<CrossFadeAnimation> createState() => CrossFadeAnimationState();
+}
+
+class CrossFadeAnimationState extends State<CrossFadeAnimation> {
+  bool flag = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 3), () {
+      setState(() {
+        flag = !flag;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AnimatedCrossFade(
+            firstChild: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
+            ),
+            secondChild: SizedBox(
+                width: 200,
+                height: 200,
+                child: Image.asset('assets/images/groot.jpg')),
+            duration: const Duration(seconds: 2),
+            firstCurve: Curves.easeInCubic,
+            secondCurve: Curves.easeInCirc,
+            crossFadeState:
+                flag ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+          ),
         ],
       ),
     );
