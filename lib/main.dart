@@ -4,7 +4,9 @@ import 'package:flutterbasic/widget/listview.dart';
 import 'package:flutterbasic/widget/roundedbtn.dart';
 import 'package:flutterbasic/widget/splashscreen.dart';
 import 'package:intl/intl.dart';
+// ignore: depend_on_referenced_packages
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.red,
           textTheme: const TextTheme(
+            // ignore: deprecated_member_use
             headline1: TextStyle(
                 color: Colors.red, fontSize: 16, fontWeight: FontWeight.w600),
             // headline2: TextStyle(
@@ -42,13 +45,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const String KEYNAME = "Username";
+  late String savedValue;
   var nameList = [];
   var username = TextEditingController();
   var selectedDate = TextEditingController();
   var currentDateTime = DateTime.now();
   var addedDateTime = [];
 
-  handleClick() {
+  handleClick() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(KEYNAME, username.text);
     setState(() {
       nameList.add(username.text);
       addedDateTime.add(DateTime.parse(selectedDate.text));
@@ -86,6 +93,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ],
             ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    setValueInSharePref();
   }
 
   @override
@@ -313,5 +327,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void setValueInSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    var newValue = sharedPreferences.getString(KEYNAME);
+    print(newValue);
+    savedValue = newValue ?? "No Saved value";
   }
 }
