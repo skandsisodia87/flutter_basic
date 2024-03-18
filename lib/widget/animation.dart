@@ -251,3 +251,50 @@ class TweenAnimationState extends State<TweenAnimation>
     );
   }
 }
+
+class RippleAnimation extends StatefulWidget {
+  const RippleAnimation({super.key});
+  @override
+  State<RippleAnimation> createState() => _RippleAnimationState();
+}
+
+class _RippleAnimationState extends State<RippleAnimation>
+    with SingleTickerProviderStateMixin {
+  final _circleRadius = [50.0, 100.0, 150.0, 200.0, 250.0];
+
+  late Animation _animation;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(seconds: 5), lowerBound: 0.2);
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
+
+    _animationController.addListener(() {
+      setState(() {});
+    });
+
+    _animationController.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        alignment: Alignment.center,
+        children: _circleRadius
+            .map((radius) => Container(
+                  width: radius * _animation.value,
+                  height: radius * _animation.value,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.withOpacity(1.0 - _animation.value)),
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
