@@ -271,7 +271,9 @@ class _RippleAnimationState extends State<RippleAnimation>
 
     _animationController = AnimationController(
         vsync: this, duration: const Duration(seconds: 5), lowerBound: 0.2);
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
+
+    // If animation is in between 0.0 - 1.0 then not need to this we can use value directly from conteoller
+    // _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
 
     _animationController.addListener(() {
       setState(() {});
@@ -287,11 +289,12 @@ class _RippleAnimationState extends State<RippleAnimation>
         alignment: Alignment.center,
         children: _circleRadius
             .map((radius) => Container(
-                  width: radius * _animation.value,
-                  height: radius * _animation.value,
+                  width: radius * _animationController.value,
+                  height: radius * _animationController.value,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.blue.withOpacity(1.0 - _animation.value)),
+                      color: Colors.blue
+                          .withOpacity(1.0 - _animationController.value)),
                 ))
             .toList(),
       ),
