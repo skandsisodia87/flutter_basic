@@ -217,3 +217,37 @@ class _ContainerViewState extends State<ContainerView> {
     );
   }
 }
+
+class TweenAnimation extends StatefulWidget {
+  const TweenAnimation({super.key});
+  @override
+  State<TweenAnimation> createState() => TweenAnimationState();
+}
+
+class TweenAnimationState extends State<TweenAnimation>
+    with SingleTickerProviderStateMixin {
+  late Animation animation;
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    animation = Tween(begin: 50.0, end: 200.0).animate(animationController);
+
+    animationController.addListener(() {
+      setState(() {});
+    });
+
+    animationController.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+          height: animation.value, width: animation.value, color: Colors.red),
+    );
+  }
+}

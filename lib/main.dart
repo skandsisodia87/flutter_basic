@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbasic/ui_helper.dart';
+import 'package:flutterbasic/widget/animation.dart';
 import 'package:flutterbasic/widget/listview.dart';
 import 'package:flutterbasic/widget/roundedbtn.dart';
 import 'package:flutterbasic/widget/splashscreen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             //     fontSize: 20,
             //     fontWeight: FontWeight.w500)
           )),
-      home: const SplashScreen(),
+      home: const TweenAnimation(),
     );
   }
 }
