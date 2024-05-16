@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbasic/routes/routes.dart';
 import 'package:flutterbasic/ui_helper.dart';
-import 'package:flutterbasic/widget/listview.dart';
+// import 'package:flutterbasic/widget/listview.dart';
 import 'package:flutterbasic/widget/roundedbtn.dart';
-import 'package:flutterbasic/widget/splashscreen.dart';
+// import 'package:flutterbasic/widget/splashscreen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 // ignore: depend_on_referenced_packages
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,7 +20,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final router = goRouter();
+    return MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: Colors.red,
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
             //     fontSize: 20,
             //     fontWeight: FontWeight.w500)
           )),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
     );
   }
 }
@@ -141,11 +146,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     .copyWith(fontFamily: 'protestRevolution'),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Listbuilder(),
-                    ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => Listbuilder(),
+                //     ));
+                context.goNamed(AppRoute.list.name);
               },
             ),
             TextButton(

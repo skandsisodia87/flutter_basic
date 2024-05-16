@@ -1,7 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutterbasic/main.dart';
+// import 'package:flutterbasic/main.dart';
+import 'package:flutterbasic/routes/routes.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,12 +16,13 @@ class IconScreen extends State<SplashScreen> {
     super.initState();
 
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                const MyHomePage(title: 'Flutter Demo Home Page'),
-          ));
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) =>
+      //           const MyHomePage(title: 'Flutter Demo Home Page'),
+      //     ));
+      context.goNamed(AppRoute.home.name);
     });
   }
 
